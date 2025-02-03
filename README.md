@@ -1,52 +1,46 @@
 # HACKATHON PROJE
 
 ## Genel Bakış
-Bu proje, **BTK Akademi**'nin düzenlemiş olduğu **HACKATHON 2024** kapsamında geliştirilmiştir. Proje, **backend** ve **frontend** bileşenlerinden oluşmakta olup, **web scraping** işlevselliği ve **MySQL** ile **local** de çalışan bir veritabanından oluşmaktadır.
+Bu proje, BTK Akademi'nin düzenlemiş olduğu HACKATON 2024 kapsamında, **Ahmet Berke Kösretaş, Orhan Barış Uzel, Gamze Nur Erdem, Emre Kaan Özkan** tarafından geliştirilmiştir. Proje, **backend** ve **frontend** bileşenlerinden oluşmakta olup, web scraping işlevselliği ve MySQL ile **local** de çalışan bir veritabanından oluşmaktadır.
 
----
+--------------
 
 ## Proje Yapısı
-
+```bash
+HACKATON PROJE/ 
+│ ├── backend/ # Arka uç (Node.js) dosyaları 
+    │ ├── analyzer.js # Verileri analiz eden Gemini API modülü 
+    │ ├── countProjects.js # Proje sayısını hesaplayan modül 
+    │ ├── projectCountsDatabase.js # Proje sayıları veritabanı işlemleri 
+    │ ├── projectTitlesDatabase.js # Proje başlıkları veritabanı işlemleri 
+    │ ├── server.js # Sunucu başlangıç dosyası 
+    │ ├── package.json # Arka uç bağımlılıkları 
+    │ └── package-lock.json # Arka uç bağımlılık kilidi 
+│ ├── frontend/ # Ön yüz (React/Vite) dosyaları 
+    │ ├── public/ # Statik dosyalar 
+    │ ├── src/ # Uygulama kaynak dosyaları 
+    │ ├── index.html # Ana HTML dosyası 
+    │ ├── vite.config.js # Vite yapılandırma dosyası 
+    │ ├── package.json # Ön yüz bağımlılıkları 
+    │ └── package-lock.json # Ön yüz bağımlılık kilidi 
+│ ├── WebScrapping_Database/ # Web scraping için veritabanı dosyaları 
+    │ ├── database.js # Veritabanı bağlantısı ve işlemleri 
+    │ ├── githubAPI.js # GitHub API ile etkileşim 
+    │ ├── githubDatabase.js # GitHub veritabanı işlemleri 
+    │ ├── index.js # Web scraping başlangıç dosyası 
+    │ ├── package.json # Web scraping bağımlılıkları 
+    │ └── package-lock.json # Web scraping bağımlılık kilidi 
+│ └── README.md #
 ```
-HACKATHON_PROJE/
-│
-├── backend/ # Arka uç (Node.js) dosyaları
-│   ├── analyzer.js               # Verileri analiz eden modül
-│   ├── countProjects.js          # Proje sayısını hesaplayan modül
-│   ├── projectCountsDatabase.js  # Proje sayıları veritabanı işlemleri
-│   ├── projectTitlesDatabase.js  # Proje başlıkları veritabanı işlemleri
-│   ├── server.js                 # Sunucu başlangıç dosyası
-│   ├── package.json              # Arka uç bağımlılıkları
-│   └── package-lock.json         # Arka uç bağımlılık kilidi
-│
-├── frontend/ # Ön yüz (React/Vite) dosyaları
-│   ├── public/                   # Statik dosyalar
-│   ├── src/                      # Uygulama kaynak dosyaları
-│   ├── index.html                # Ana HTML dosyası
-│   ├── vite.config.js            # Vite yapılandırma dosyası
-│   ├── package.json              # Ön yüz bağımlılıkları
-│   └── package-lock.json         # Ön yüz bağımlılık kilidi
-│
-├── WebScrapping_Database/ # Web scraping için veritabanı dosyaları
-│   ├── database.js        # Veritabanı bağlantısı ve işlemleri
-│   ├── githubAPI.js       # GitHub API ile etkileşim
-│   ├── githubDatabase.js  # GitHub veritabanı işlemleri
-│   ├── index.js           # Web scraping başlangıç dosyası
-│   ├── package.json       # Web scraping bağımlılıkları
-│   └── package-lock.json  # Web scraping bağımlılık kilidi
-│
-└── README.md # Proje dökümanı
-```
-
----
+--------------
 
 ## Kurulum
 
-### 1. Node.js ve npm'yi Yükleyin
-Projeyi çalıştırmadan önce, sisteminizde **Node.js** ve **npm** yüklü olmalıdır. Yüklemek için [Node.js resmi web sitesini](https://nodejs.org/) ziyaret edin.
+1. **Node.js ve npm'yi yükleyin.**
+   Projeyi çalıştırmadan önce, sisteminizde Node.js ve npm yüklü olmalıdır. Yüklemek için [Node.js resmi web sitesini](https://nodejs.org/) ziyaret edin.
 
-### 2. Bağımlılıkları Yükleme
-Hem arka uç hem de ön yüz bağımlılıklarını yüklemek için, aşağıdaki komutları her klasör içinde çalıştırın:
+2. **Bağımlılıkları Yükleme**
+   Hem arka uç hem de ön yüz bağımlılıklarını yüklemek için, aşağıdaki komutları her klasör içinde çalıştırın:
 
 ```bash
 cd backend
@@ -58,49 +52,46 @@ npm install
 cd ../WebScrapping_Database
 npm install
 ```
+--------------
 
----
+## Veritabanını Hazırlama
 
-## Veritabanını Hazırlama
-Projede **MySQL** kullanılmaktadır. **Local** ortamda **iki tane veritabanı** oluşturulmalıdır:
+Öncelikle veritabanı için MySQL kullanılmıştır. **Local** de iki tane veritabanı oluşturmamız gerek. Bir tanesi web scrapping ile çekilen proje başlıkları verilerini depolamak için oluşturulacak. Diğeri ise GithubAPI kullanılarak çekilen proje sayıları verilerini depolamak için oluşturulacak.
 
-1. Web scraping ile çekilen proje başlıkları verilerini depolamak için bir veritabanı.
-2. GitHub API kullanılarak çekilen proje sayıları verilerini depolamak için bir veritabanı.
+Veritabanına proje başlıklarını eklemek için projenin ana dizininde şu komut çalıştırılmalıdır:
 
-**Veritabanına proje başlıklarını eklemek için:**
 ```bash
 cd WebScrapping_Database
 node database.js
 ```
+--------------
 
-**Veritabanına proje sayılarını eklemek için:**
+Veritabanına proje sayılarını eklemek için projenin ana dizininde şu komut çalıştırılmalıdır:
+
 ```bash
 cd WebScrapping_Database
 node githubDatabase.js
 ```
+--------------
 
-### Notlar:
-- **GitHub API** (githubAPI.js) kullanılarak yapılan proje sayıları araması "[query] projects" şeklinde yapılmıştır.
-- **arxiv.com** kullanılarak yapılan proje başlıkları araması için doğrudan "[query]" kullanılmıştır.
-- **Backend** klasörünün içinde bulunan **.env** dosyasına **Gemini AI API** anahtarı eklenmelidir.
+-Not: GithubAPI (githubAPI.js) de yapılan proje sayıları araması "[query] projects" şeklinde yapılmıştır.
 
----
+-Not: arxiv.org da yapılan proje başlıkları araması için doğrudan "[query]" kullanılmıştır.
 
-## Projeyi Çalıştırma
-Ana dizinde aşağıdaki komutu çalıştırın:
+-Not: Projenin **backend** klasöründe bulunan **.env** dosyasında, Gemini AI API yi kullanabilmek için API anahtarını yazmak gerekmektedir.
+
+--------------
+
+## Çalıştırma
+Projeyi başlatmak için ana dizinde aşağıdaki komutu çalıştırın:
+
 ```bash
 npm start
 ```
-
----
+--------------
 
 ## Kullanım
-Bu proje, kullanıcının seçmiş olduğu **proje alanı** için **web scraping** ile toplanan **proje başlıkları veritabanını** kullanarak **Gemini AI** ile yeni proje konuları önermeyi amaçlamaktadır.
-
-Ayrıca, kullanıcı arayüzünde **seçilen proje alanı** ile ilgili **yıllara göre proje sayılarını grafiksel olarak göstermek** hedeflenmiştir. Bu sayede daha **canlı ve etkileşimli** bir deneyim sunulacaktır.
-
----
+Proje, kullanıcı arayüzünde seçilmiş olan (kullanıcı tarafından) proje alanı için, web scrapping ile hazırlanan proje başlıkları veritabanını kullanarak Gemini AI ile yeni bir proje konusu önerisi almayı amaçlıyor. Aynı zamanda kullanıcı arayüzü kısmında seçilen proje alanı ile ilgili yıllara göre proje sayıları dağılımını grafik olarak vererek daha canlı bir kullanıcı arayüzü sunmak amaçlanmıştır.
 
 ## Lisans
-Bu proje **MIT Lisansı** altında lisanslanmıştır.
-
+Bu proje MIT Lisansı altında lisanslanmıştır.
